@@ -5,7 +5,8 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
+    // определение переменных
     Button btnC, btnMin, btnPerc, btnDel, btnDiv, btnMul, btnMinus, btnPlus, btnEq, btnDot;
     Button btnZero, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9;
     TextView tv1, tv2;
@@ -24,10 +26,14 @@ public class MainActivity extends AppCompatActivity {
     String zod = "";
     int der = 0;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        // кнопки и текст
         btnC = (Button) findViewById(R.id.btnC);
         btnMin = (Button) findViewById(R.id.btnMin);
         btnPerc = (Button) findViewById(R.id.btnPerc);
@@ -38,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         btnPlus = (Button) findViewById(R.id.btnPlus);
         btnEq = (Button) findViewById(R.id.btnEq);
         btnZero = (Button) findViewById(R.id.btnZero);
+        btnDot = (Button) findViewById(R.id.btnDot);
         btn1 = (Button) findViewById(R.id.btn1);
         btn2 = (Button) findViewById(R.id.btn2);
         btn3 = (Button) findViewById(R.id.btn3);
@@ -50,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         tv1 = (TextView) findViewById(R.id.tv1);
         tv2 = (TextView) findViewById(R.id.tv2);
     }
-
+        // цифровы кнопки и точка
     public void onClickNumb(View v){
         switch(v.getId()){
             case R.id.btnZero:
@@ -110,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+    // кнопки операций
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void onClickRes(View v){
         switch(v.getId()){
@@ -362,5 +370,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-
+    // создание меню
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
 }
