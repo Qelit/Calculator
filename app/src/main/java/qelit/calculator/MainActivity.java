@@ -2,9 +2,6 @@ package qelit.calculator;
 
 import android.app.DialogFragment;
 import android.content.Intent;
-import android.icu.text.DecimalFormat;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -30,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
     int der = 0;
     DialogFragment dlg;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     // кнопки операций
-    @RequiresApi(api = Build.VERSION_CODES.N)
     public void onClickRes(View v){
         switch(v.getId()){
             case R.id.btnC:
@@ -174,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
                             bot = String.valueOf(der + "+");
                             tv1.setText(String.valueOf(bot));
                         } else {
-                            String formattedDouble = new DecimalFormat("#0.00").format(result);
+                            String formattedDouble = String.format("%, (.2f", result);
                             bot = String.valueOf(formattedDouble + "+");
                             tv1.setText(String.valueOf(bot));
                         }
@@ -209,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                             bot = String.valueOf(der + "-");
                             tv1.setText(String.valueOf(bot));
                         } else {
-                            String formattedDouble = new DecimalFormat("#0.00").format(result);
+                            String formattedDouble = String.format("%, (.2f", result);
                             bot = String.valueOf(formattedDouble + "-");
                             tv1.setText(String.valueOf(bot));
                         }
@@ -251,7 +246,7 @@ public class MainActivity extends AppCompatActivity {
                             bot = String.valueOf(der + "÷");
                             tv1.setText(String.valueOf(bot));
                         } else {
-                            String formattedDouble = new DecimalFormat("#0.00").format(result);
+                            String formattedDouble = String.format("%, (.2f", result);
                             bot = String.valueOf(formattedDouble + "÷");
                             tv1.setText(String.valueOf(bot));
                             }
@@ -286,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
                             bot = String.valueOf(der + "x");
                             tv1.setText(String.valueOf(bot));
                         } else {
-                            String formattedDouble = new DecimalFormat("#0.00").format(result);
+                            String formattedDouble = String.format("%, (.2f", result);
                             bot = String.valueOf(formattedDouble + "x");
                             tv1.setText(String.valueOf(bot));
                         }
@@ -344,9 +339,8 @@ public class MainActivity extends AppCompatActivity {
                             bot = String.valueOf(der);
                         }
                         else {
-                            String formattedDouble = new DecimalFormat("#0.00").format(result);
-                            tv1.setText(String.valueOf(formattedDouble));
-                            bot = String.valueOf(result);
+                            bot = String.format("%, (.2f", result);
+                            tv1.setText(String.valueOf(bot));
                         }
                         zod = "";
                         break;
@@ -366,9 +360,8 @@ public class MainActivity extends AppCompatActivity {
                             bot = String.valueOf(der);
                         }
                         else {
-                            String formattedDouble = new DecimalFormat("#0.00").format(result);
-                            tv1.setText(String.valueOf(formattedDouble));
-                            bot = String.valueOf(result);
+                            bot = String.format("%, (.2f", result);
+                            tv1.setText(String.valueOf(bot));
                         }
                         zod = "";
                         break;
@@ -395,9 +388,8 @@ public class MainActivity extends AppCompatActivity {
                             bot = String.valueOf(der);
                         }
                         else {
-                            String formattedDouble = new DecimalFormat("#0.00").format(result);
-                            tv1.setText(String.valueOf(formattedDouble));
-                            bot = String.valueOf(result);
+                            bot = String.format("%, (.2f", result);
+                            tv1.setText(String.valueOf(bot));
                         }
                         zod = "";
                         break;
@@ -417,9 +409,8 @@ public class MainActivity extends AppCompatActivity {
                             bot = String.valueOf(der);
                         }
                         else {
-                            String formattedDouble = new DecimalFormat("#0.00").format(result);
-                            tv1.setText(String.valueOf(formattedDouble));
-                            bot = String.valueOf(result);
+                            bot = String.format("%, (.2f", result);
+                            tv1.setText(String.valueOf(bot));
                         }
                         zod = "";
                         break;
