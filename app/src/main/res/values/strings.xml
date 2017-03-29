@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">Calculator</string>
     <string name="action_settings">Settings</string>
+    <string name="message_text">Моя первая программа. И первый шаг на пути к хорошему разработчику.</string>
+    <string name="ok">OK</string>
+    <string name="about">About</string>
     <string name="c">C</string>
     <string name="min">+/-</string>
     <string name="percent">%</string>

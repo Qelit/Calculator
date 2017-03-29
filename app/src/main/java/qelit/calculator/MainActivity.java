@@ -1,5 +1,7 @@
 package qelit.calculator;
 
+import android.app.DialogFragment;
+import android.content.Intent;
 import android.icu.text.DecimalFormat;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -7,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,14 +28,17 @@ public class MainActivity extends AppCompatActivity {
     String crow ="";
     String zod = "";
     int der = 0;
+    DialogFragment dlg;
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        dlg = new Dialog();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setTitle("Калькулятор");
         // кнопки и текст
         btnC = (Button) findViewById(R.id.btnC);
         btnMin = (Button) findViewById(R.id.btnMin);
@@ -165,12 +171,12 @@ public class MainActivity extends AppCompatActivity {
                         prom = 0;
                         if (result % 1 == 0) {
                             der = (int) result;
-                            tv1.setText(String.valueOf(der));
                             bot = String.valueOf(der + "+");
+                            tv1.setText(String.valueOf(bot));
                         } else {
-                            tv1.setText(String.valueOf(result));
-                            bot = String.valueOf(result);
-                            bot = String.valueOf(result + "+");
+                            String formattedDouble = new DecimalFormat("#0.00").format(result);
+                            bot = String.valueOf(formattedDouble + "+");
+                            tv1.setText(String.valueOf(bot));
                         }
                     } else {
                         result = prom;
@@ -188,11 +194,25 @@ public class MainActivity extends AppCompatActivity {
                     prom = Double.parseDouble(crow);
                     crow = "";
                     if (result != 0) {
-                        tv2.setText(String.valueOf(result) + "-" + String.valueOf(prom));
+                        if (result % 1 == 0 && prom % 1 == 0) {
+                            int q = (int) result;
+                            int qq = (int) prom;
+                            tv2.setText(String.valueOf(q) + "-" + String.valueOf(qq));
+                        }
+                        else {
+                            tv2.setText(String.valueOf(result) + "-" + String.valueOf(prom));
+                        }
                         result = result - prom;
                         prom = 0;
-                        tv1.setText(String.valueOf(result));
-                        bot = String.valueOf(result + "-");
+                        if (result % 1 == 0) {
+                            der = (int) result;
+                            bot = String.valueOf(der + "-");
+                            tv1.setText(String.valueOf(bot));
+                        } else {
+                            String formattedDouble = new DecimalFormat("#0.00").format(result);
+                            bot = String.valueOf(formattedDouble + "-");
+                            tv1.setText(String.valueOf(bot));
+                        }
                     } else {
                         result = prom;
                     }
@@ -208,26 +228,40 @@ public class MainActivity extends AppCompatActivity {
                     tv1.setText(bot);
                     prom = Double.parseDouble(crow);
                     crow = "";
-
-                    if (prom == 0) {
-                        Toast.makeText(this, "Издеваешься?", Toast.LENGTH_SHORT).show();
+                    if (prom == 0){
+                        Toast.makeText(this, "You are seriously?",Toast.LENGTH_SHORT).show();
+                        bot = "";
+                        crow = "";
+                        zod = "";
                         break;
                     }
                     if (result != 0) {
-                        tv2.setText(String.valueOf(result) + "÷" + String.valueOf(prom));
+                        if (result % 1 == 0 && prom % 1 == 0) {
+                            int q = (int) result;
+                            int qq = (int) prom;
+                            tv2.setText(String.valueOf(q) + "÷" + String.valueOf(qq));
+                            }
+                        else {
+                            tv2.setText(String.valueOf(result) + "÷" + String.valueOf(prom));
+                            }
                         result = result / prom;
                         prom = 0;
-                        String formattedDouble = new DecimalFormat("#0.00").format(result);
-                        tv1.setText(String.valueOf(formattedDouble));
-                        bot = String.valueOf(result + "÷");
+                        if (result % 1 == 0) {
+                            der = (int) result;
+                            bot = String.valueOf(der + "÷");
+                            tv1.setText(String.valueOf(bot));
+                        } else {
+                            String formattedDouble = new DecimalFormat("#0.00").format(result);
+                            bot = String.valueOf(formattedDouble + "÷");
+                            tv1.setText(String.valueOf(bot));
+                            }
+                        } else {
+                            result = prom;
+                        }
                     } else {
-                        result = prom;
+                        bot = bot + "÷";
+                        tv1.setText(bot);
                     }
-                } else {
-                    bot = bot + "÷";
-                    tv1.setText(bot);
-
-                }
                 zod = "÷";
                 break;
             case R.id.btnMul:
@@ -237,18 +271,32 @@ public class MainActivity extends AppCompatActivity {
                     prom = Double.parseDouble(crow);
                     crow = "";
                     if (result != 0) {
-                        tv2.setText(String.valueOf(result) + "x" + String.valueOf(prom));
+                        if (result % 1 == 0 && prom % 1 == 0) {
+                            int q = (int) result;
+                            int qq = (int) prom;
+                            tv2.setText(String.valueOf(q) + "x" + String.valueOf(qq));
+                        }
+                        else {
+                            tv2.setText(String.valueOf(result) + "x" + String.valueOf(prom));
+                        }
                         result = result * prom;
                         prom = 0;
-                        tv1.setText(String.valueOf(result));
-                        bot = String.valueOf(result + "x");
+                        if (result % 1 == 0) {
+                            der = (int) result;
+                            bot = String.valueOf(der + "x");
+                            tv1.setText(String.valueOf(bot));
+                        } else {
+                            String formattedDouble = new DecimalFormat("#0.00").format(result);
+                            bot = String.valueOf(formattedDouble + "x");
+                            tv1.setText(String.valueOf(bot));
+                        }
                     } else {
                         result = prom;
                     }
                 } else {
-                bot = bot + "x";
+                    bot = bot + "+";
                     tv1.setText(bot);
-            }
+                }
                 zod = "x";
                 break;
             case R.id.btnPerc:
@@ -296,7 +344,8 @@ public class MainActivity extends AppCompatActivity {
                             bot = String.valueOf(der);
                         }
                         else {
-                            tv1.setText(String.valueOf(result));
+                            String formattedDouble = new DecimalFormat("#0.00").format(result);
+                            tv1.setText(String.valueOf(formattedDouble));
                             bot = String.valueOf(result);
                         }
                         zod = "";
@@ -317,12 +366,20 @@ public class MainActivity extends AppCompatActivity {
                             bot = String.valueOf(der);
                         }
                         else {
-                            tv1.setText(String.valueOf(result));
+                            String formattedDouble = new DecimalFormat("#0.00").format(result);
+                            tv1.setText(String.valueOf(formattedDouble));
                             bot = String.valueOf(result);
                         }
                         zod = "";
                         break;
                     case "÷" :
+                        if (prom == 0){
+                            Toast.makeText(this, "You are seriously?",Toast.LENGTH_SHORT).show();
+                            bot = "";
+                            crow = "";
+                            zod = "";
+                            break;
+                        }
                         if (result % 1 == 0 && prom % 1 == 0) {
                             int q = (int) result;
                             int qq = (int) prom;
@@ -360,7 +417,8 @@ public class MainActivity extends AppCompatActivity {
                             bot = String.valueOf(der);
                         }
                         else {
-                            tv1.setText(String.valueOf(result));
+                            String formattedDouble = new DecimalFormat("#0.00").format(result);
+                            tv1.setText(String.valueOf(formattedDouble));
                             bot = String.valueOf(result);
                         }
                         zod = "";
@@ -375,5 +433,19 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.action_settings:
+                Intent intent = new Intent("android.settings.DISPLAY_SETTINGS");
+                startActivity(intent);
+                break;
+            case R.id.about:
+                dlg.show(getFragmentManager(), "dlg1");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
